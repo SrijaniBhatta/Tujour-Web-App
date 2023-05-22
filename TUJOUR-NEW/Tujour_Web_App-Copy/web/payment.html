@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/icon.png"/> <title>Tujour Tour & Travel</title>
+    <style>
+        body{
+            background-color: rgb(192, 208, 219);
+        }
+        .pay-rzp{
+            margin: 20% 40%;
+            width: 400px;
+        }
+        #rzp-button1{
+            margin-left: 99px;
+            padding: 10px 20px;
+            background-color: bisque;
+        }
+    </style>
+</head>
+<body>
+    <div class="pay-rzp">
+    <p style="color: rgb(14, 12, 121); font-size: 30px;">Make Your Payment Here</p>
+    <button id="rzp-button1">Pay</button>
+ </div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_8VgGIjAulD1UKC", // Enter the Key ID generated from the Dashboard
+    "amount": "500000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Tujour Web Application", //your business name
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "order_LsdcGxHMRTNTFC", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+        "name": "Rohit Nemu", //your customer's name
+        "email": "rohitcse7872@gmail.com", 
+        "contact": "7872611723"  //Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+</body>
+</html>

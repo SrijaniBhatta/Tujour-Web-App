@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="images/icon.png"/> <title>Tujour Tour & Travel</title>
+    <script type="text/javascript">
+      function preventBack(){
+        window.history.forward();
+      }
+      setTimeout("preventBack()" ,0 );
+      window.onunload = function(){
+        null
+      };
+    </script>
+     </head>
+  <body>
+    <div class="logout-page" style="color: black; width: 300px; margin-left: 500px; margin-top: 150px;">
+    <h1 style="text-align: center;">LOGOUT PAGE</h1>
+    <p style="text-align: center;">Thankyou For Visiting in our Website.We hope you are enjoying  with our services.If there any issue you also can contact with us in the mentioned phone number or email id.</p>
+    <button id="logout-button" value="ok" style="margin: 0 120px; text-align: center;">Logout</button>
+  </div>
+    <!-- <script type="module" src="firebaseconfig.js"></script> -->
+
+    <script type="module">
+      import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyA5SlSgUyYx-ux-wN3l30vNcwTNDB6ti_U",
+        authDomain: "tujour-web-application.firebaseapp.com",
+        databaseURL: "https://tujour-web-application-default-rtdb.firebaseio.com",
+        projectId: "tujour-web-application",
+        storageBucket: "tujour-web-application.appspot.com",
+        messagingSenderId: "220468536031",
+        appId: "1:220468536031:web:672481812455b37be4bf6a"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      let logoutButton = document.getElementById("logout-button");
+      console.log(logoutButton);
+
+      logoutButton.addEventListener("click", (e) => {
+        const auth = getAuth(app);
+        signOut(auth)
+          .then(() => {
+            alert("User Logout");
+            location.href = "http://127.0.0.1:5502/TUJOUR-NEW/index.html";
+          })
+          .catch((error) => {});
+      });
+    </script>
+  </body>
+</html>
